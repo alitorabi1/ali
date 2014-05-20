@@ -29,3 +29,4 @@ object LoginControllerSpec extends PlaySpecification {
     session(result) get("email") must equalTo(None)
   }
 }
+
