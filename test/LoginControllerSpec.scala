@@ -1,7 +1,6 @@
 package test
 
-import play.api.test.{FakeHeaders, FakeRequest, WithApplication, PlaySpecification}
-import play.api.mvc.AnyContentAsEmpty
+import play.api.test.{FakeRequest, WithApplication, PlaySpecification}
 
 object LoginControllerSpec extends PlaySpecification {
 
