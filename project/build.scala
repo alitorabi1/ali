@@ -14,6 +14,9 @@ object build extends Build {
   lazy val project = Project (
     "project",
     file("."),
-    settings = gcsettings ++ Seq(gcTask)
+    settings = gcsettings ++ Seq(
+		  gcTask,
+      publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+		)
   )
 }
