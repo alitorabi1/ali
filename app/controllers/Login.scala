@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc._
+import com.socialorra.api.registry.UserComponentRegistry
 
 object Login extends Controller {
 
@@ -26,49 +27,5 @@ object Login extends Controller {
       } getOrElse {
     Unauthorized
   }}
-}
-
-
-// This is a user DAO
-trait UserRepositoryComponent {
-  val userRepository: UserRepository
-
-  // User DAO's respect this trait
-  trait UserRepository {
-    def authenticate(email: String, password: String): Boolean
-  }
-
-  // A fake user DAO
-  class FakeUserRepository extends UserRepository {
-    val PASS = "password"
-    def authenticate(email: String, password: String): Boolean = password == PASS
-  }
-}
-
-// This is a user service / API that needs a user DAO
-trait UserServiceComponent {
-  this: UserRepositoryComponent =>
-
-  // This is injected
-  val userService: UserService
-
-  // User services respect this trait
-  trait UserService {
-    def authenticate(email: String, password: String): Boolean
-  }
-
-  // A fake user service
-  class FakeUserService extends UserService {
-    def authenticate(email: String, password: String): Boolean = userRepository.authenticate(email, password)
-  }
-}
-
-// Registry for all user related components
-object UserComponentRegistry extends
-UserServiceComponent with
-UserRepositoryComponent
-{
-  val userRepository = new FakeUserRepository
-  val userService = new FakeUserService
 }
 
