@@ -10,3 +10,8 @@ target/
 *.settings/
 *.scalastyle
 
+.history
+.idea
+.idea_modules
+
+*.swp
