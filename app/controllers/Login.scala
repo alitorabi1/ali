@@ -2,14 +2,16 @@ package controllers
 
 import play.api.mvc._
 
-object Login extends Controller with UserModule {
+object Login extends Controller {
+
+  val userService = UserComponentRegistry.userService
 
   def auth = Action { implicit request => {
         for {
           params <- request.body.asFormUrlEncoded
           email <- params.getOrElse("email", Seq.empty[String]).headOption
           password <- params.getOrElse("password", Seq.empty[String]).headOption
-          authenticated <- Some(authenticator.authenticate(email, password))
+          authenticated <- Some(userService.authenticate(email, password))
           if (authenticated)
         } yield {
 
@@ -26,21 +28,47 @@ object Login extends Controller with UserModule {
   }}
 }
 
-trait UserModule {
 
-  val authenticator: AuthenticatorModule = FakeAuthenticatorModule
-}
+// This is a user DAO
+trait UserRepositoryComponent {
+  val userRepository: UserRepository
 
-trait AuthenticatorModule {
+  // User DAO's respect this trait
+  trait UserRepository {
+    def authenticate(email: String, password: String): Boolean
+  }
 
-  def authenticate(email: String, password: String): Boolean
-}
-
-object FakeAuthenticatorModule extends AuthenticatorModule {
-
-  val PASS = "password"
-
-  def authenticate(email: String, password: String): Boolean = {
-    password == PASS
+  // A fake user DAO
+  class FakeUserRepository extends UserRepository {
+    val PASS = "password"
+    def authenticate(email: String, password: String): Boolean = password == PASS
   }
 }
+
+// This is a user service / API that needs a user DAO
+trait UserServiceComponent {
+  this: UserRepositoryComponent =>
+
+  // This is injected
+  val userService: UserService
+
+  // User services respect this trait
+  trait UserService {
+    def authenticate(email: String, password: String): Boolean
+  }
+
+  // A fake user service
+  class FakeUserService extends UserService {
+    def authenticate(email: String, password: String): Boolean = userRepository.authenticate(email, password)
+  }
+}
+
+// Registry for all user related components
+object UserComponentRegistry extends
+UserServiceComponent with
+UserRepositoryComponent
+{
+  val userRepository = new FakeUserRepository
+  val userService = new FakeUserService
+}
+
