@@ -14,3 +14,17 @@ resolvers += "Local Maven" at Path.userHome.asFile.toURI.toURL + ".m2/repository
 
 play.Project.playScalaSettings
 
+instrumentSettings
+
+ScoverageKeys.minimumCoverage := 70
+
+ScoverageKeys.failOnMinimumCoverage := false
+
+ScoverageKeys.highlighting := {
+  if (scalaBinaryVersion.value == "2.10") false
+	else false
+}
+
+publishArtifact in Test := false
+
+parallelExecution in Test := false
