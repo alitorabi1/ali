@@ -88,6 +88,9 @@ libraryDependencies ++= Seq (
   ,"org.json4s" %% "json4s-jackson" % "3.2.9"
   // -- config --
   ,"com.typesafe" % "config" % "1.2.0"
+  // -- social networks --
+  ,"org.twitter4j" % "twitter4j-core" % "4.0.1"
+  ,"org.facebook4j" % "facebook4j-core" % "2.1.0"
 )
 
 /* you may need these repos */
