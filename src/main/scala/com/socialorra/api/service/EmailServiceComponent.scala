@@ -1,6 +1,6 @@
 package com.socialorra.api.service
 
-import com.socialorra.api.repo.EmailRepositoryComponent
+import com.socialorra.api.repo.email.EmailRepositoryComponent
 
 /**
  * Email services.

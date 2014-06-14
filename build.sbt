@@ -91,6 +91,8 @@ libraryDependencies ++= Seq (
   // -- social networks --
   ,"org.twitter4j" % "twitter4j-core" % "4.0.1"
   ,"org.facebook4j" % "facebook4j-core" % "2.1.0"
+	// -- email --
+	,"org.apache.commons" % "commons-email" % "1.3.2"
 )
 
 /* you may need these repos */
