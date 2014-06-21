@@ -19,7 +19,7 @@ class EmailRepositoryImplSpec extends UnitSpec with BeforeAndAfterAll {
 
   "A real EmailRepository" should "deliver real email" in {
     val repo = EmailComponentRegistry.emailRepository
-    repo.send("hisham.mardambey@gmail.com", "test subject", "test message")
+    repo.send("test@test.local", "test subject", "test message")
 
     assert(greenMail.waitForIncomingEmail(5000, 1) == true)
 
@@ -30,7 +30,7 @@ class EmailRepositoryImplSpec extends UnitSpec with BeforeAndAfterAll {
     val message = messages(0)
 
     assert(message.getAllRecipients.length >= 1)
-    assert(message.getAllRecipients.head.toString == "hisham.mardambey@gmail.com")
+    assert(message.getAllRecipients.head.toString == "test@test.local")
     assert(message.getSubject == "test subject")
     assert(GreenMailUtil.getBody(message).trim.contains("test message"))
   }
