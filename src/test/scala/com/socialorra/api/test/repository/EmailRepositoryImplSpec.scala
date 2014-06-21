@@ -21,7 +21,7 @@ class EmailRepositoryImplSpec extends UnitSpec with BeforeAndAfterAll {
     val repo = EmailComponentRegistry.emailRepository
     repo.send("hisham.mardambey@gmail.com", "test subject", "test message")
 
-    assert(greenMail.waitForIncomingEmail(100, 1) == true)
+    assert(greenMail.waitForIncomingEmail(5000, 1) == true)
 
     val messages = greenMail.getReceivedMessages()
 
