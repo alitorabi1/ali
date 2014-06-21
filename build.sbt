@@ -93,6 +93,7 @@ libraryDependencies ++= Seq (
   ,"org.facebook4j" % "facebook4j-core" % "2.1.0"
 	// -- email --
 	,"org.apache.commons" % "commons-email" % "1.3.2"
+  ,"com.icegreen" % "greenmail" % "1.3.1b" % "test"
 )
 
 /* you may need these repos */
