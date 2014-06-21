@@ -16,4 +16,4 @@ target/
 
 *.swp
 
-*.overrides.conf
+src/main/resources/*.overrides.conf
