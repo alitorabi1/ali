@@ -1,6 +1,6 @@
 package com.socialorra.api.test.repository
 
-import com.icegreen.greenmail.util.{GreenMailUtil, GreenMail}
+import com.icegreen.greenmail.util.{ GreenMailUtil, GreenMail }
 import com.socialorra.api.registry.EmailRegistry
 import com.socialorra.api.test.UnitSpec
 import org.scalatest.BeforeAndAfterAll

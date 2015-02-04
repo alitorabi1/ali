@@ -21,6 +21,7 @@ object SoBuild extends Build {
   val apiDeps = Seq(
     apacheCommons,
     akkaActor,
+    akkaSlf4j,
     facebook4j,
     greenMail,
     scalaTest,
@@ -58,6 +59,7 @@ object SoBuild extends Build {
 object Dependencies {
   val akkaActor = "com.typesafe.akka" %% "akka-actor" % "2.3.5"
   val akkaAgent = "com.typesafe.akka" %% "akka-agent" % "2.3.5"
+  val akkaSlf4j = "com.typesafe.akka" %% "akka-slf4j" % "2.3.5"
   val logback = "ch.qos.logback" % "logback-classic" % "1.1.1"
   val scalaTest = "org.scalatest" %% "scalatest" % "2.2.1" % "test"
   val scalaReflect = "org.scala-lang" % "scala-reflect" % "2.11.5"
