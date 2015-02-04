@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import com.socialorra.api.registry.FacebookComponentRegistry
+import com.socialorra.api.registry.FacebookRegistry
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
@@ -9,7 +9,7 @@ import com.socialorra.api.repo.facebook.AccessToken
 
 object Facebook extends Controller {
 
-  val facebook = FacebookComponentRegistry.facebookService
+  val facebook = FacebookRegistry.facebookRepository
 
   val serverURL = play.api.Play.current.configuration.getString("server.url").get
   lazy val callbackURL = s"$serverURL/facebook/callback"
@@ -36,12 +36,12 @@ object Facebook extends Controller {
         accessToken <- facebook.getOAuthAccessToken(oauthCode, callbackURL);
         screenName <- facebook.getName(accessToken)
       } yield {
-        Found(redirectURL).withSession(session + ("facebookScreenName" -> screenName))
+        Found(redirectURL).withSession(request.session + ("facebookScreenName" -> screenName))
       }
 
     } catch {
-      case e: Exception => future { InternalServerError(e.getMessage) }
-      case x: Throwable => future { InternalServerError("unknown error") }
+      case e: Exception => Future { InternalServerError(e.getMessage) }
+      case x: Throwable => Future { InternalServerError("unknown error") }
     }
   }
 }

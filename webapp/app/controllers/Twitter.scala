@@ -4,12 +4,12 @@ import play.api.mvc._
 
 import scala.concurrent._
 import ExecutionContext.Implicits.global
-import com.socialorra.api.registry.TwitterComponentRegistry
+import com.socialorra.api.registry.TwitterRegistry
 import com.socialorra.api.repo.twitter.{AccessToken, RequestToken}
 
 object Twitter extends Controller {
 
-  val twitter = TwitterComponentRegistry.twitterService
+  val twitter = TwitterRegistry.twitterRepository
 
   val serverURL = play.api.Play.current.configuration.getString("server.url").get
   lazy val callbackURL = s"$serverURL/twitter/callback"
@@ -30,7 +30,7 @@ object Twitter extends Controller {
       accessToken <- isLoggedIn; if (accessToken.isDefined);
       screenName  <- twitter.getScreenName(accessToken.get)
     } yield {
-      Found(redirectURL).withSession(session
+      Found(redirectURL).withSession(request.session
         + ("twitterScreenName"        -> screenName)
         + ("twitterAccessToken"       -> accessToken.get.token)
         + ("twitterAccessTokenSecret" -> accessToken.get.secret)
@@ -40,7 +40,7 @@ object Twitter extends Controller {
     r fallbackTo (twitter.getOAuthRequestToken(callbackURL) map { requestToken =>
         // TODO: catch TwitterException
         Found(requestToken.getAuthenticationURL)
-          .withSession(session
+          .withSession(request.session
           + ("requestToken"       -> requestToken.token)
           + ("requestTokenSecret" -> requestToken.secret))
     })
@@ -49,13 +49,13 @@ object Twitter extends Controller {
   def callback = Action.async { implicit request =>
 
     val verifier = request.getQueryString("oauth_verifier")
-    val requestToken = new RequestToken(session.get("requestToken").get, session.get("requestTokenSecret").get)
+    val requestToken = new RequestToken(request.session.get("requestToken").get, request.session.get("requestTokenSecret").get)
 
     for {
       accessToken <- twitter.getOAuthAccessToken(requestToken, verifier.get);
       screenName  <- twitter.getScreenName(accessToken)
     } yield {
-      Found(redirectURL).withSession(session
+      Found(redirectURL).withSession(request.session
         + ("twitterScreenName"        -> screenName)
         + ("twitterAccessToken"       -> accessToken.token)
         + ("twitterAccessTokenSecret" -> accessToken.secret)
@@ -68,9 +68,9 @@ object Twitter extends Controller {
 
   protected def isLoggedIn(implicit request: Request[AnyContent]): Future[Option[AccessToken]] = {
     val loggedIn = for (
-      userId      <- session.get("twitterUserId");
-      token       <- session.get("twitterAccessToken");
-      tokenSecret <- session.get("twitterAccessTokenSecret");
+      userId      <- request.session.get("twitterUserId");
+      token       <- request.session.get("twitterAccessToken");
+      tokenSecret <- request.session.get("twitterAccessTokenSecret");
       accessToken <- Some(new AccessToken(token, tokenSecret, userId.toLong))
     ) yield {
         twitter.getScreenName(accessToken) map { screenName =>
@@ -79,6 +79,6 @@ object Twitter extends Controller {
         }
     }
 
-    loggedIn getOrElse future { None }
+    loggedIn getOrElse Future { None }
   }
 }

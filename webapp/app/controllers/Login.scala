@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.mvc._
-import com.socialorra.api.registry.UserComponentRegistry
+import com.socialorra.api.registry.UserRegistry
 
 object Login extends Controller {
 
-  val userService = UserComponentRegistry.userService
+  val userService = UserRegistry.userRepository
 
   def auth = Action { implicit request => {
         for {
