@@ -1,13 +1,8 @@
 package com.socialorra.api.registry
 
-import com.socialorra.api.service.UserServiceComponent
-import com.socialorra.api.repo.UserRepositoryComponent
+import com.socialorra.api.repo.FakeUserRepository
 
 // Registry for all user related components
-object UserComponentRegistry extends
-UserServiceComponent with
-UserRepositoryComponent
-{
+object UserComponentRegistry {
   val userRepository = new FakeUserRepository
-  val userService = new FakeUserService
 }

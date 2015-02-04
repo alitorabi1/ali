@@ -1,7 +1,7 @@
 package com.socialorra.api.test.repository
 
 import com.icegreen.greenmail.util.{GreenMailUtil, GreenMail}
-import com.socialorra.api.registry.EmailComponentRegistry
+import com.socialorra.api.registry.EmailRegistry
 import com.socialorra.api.test.UnitSpec
 import org.scalatest.BeforeAndAfterAll
 
@@ -18,7 +18,7 @@ class EmailRepositoryImplSpec extends UnitSpec with BeforeAndAfterAll {
   }
 
   "A real EmailRepository" should "deliver real email" in {
-    val repo = EmailComponentRegistry.emailRepository
+    val repo = EmailRegistry.emailRepository
     repo.send("test@test.local", "test subject", "test message")
 
     assert(greenMail.waitForIncomingEmail(5000, 1) == true)
