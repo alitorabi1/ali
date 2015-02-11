@@ -14,8 +14,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.0-RC2")
 
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2")
 
-addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
-
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.7")
 
