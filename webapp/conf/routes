@@ -14,6 +14,7 @@ GET     /twitter/callback           controllers.Twitter.callback
 GET     /facebook/testLogin          controllers.Facebook.testLogin
 GET     /facebook/auth               controllers.Facebook.auth
 GET     /facebook/callback           controllers.Facebook.callback
+GET     /facebook/testPost           controllers.Facebook.testPost
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

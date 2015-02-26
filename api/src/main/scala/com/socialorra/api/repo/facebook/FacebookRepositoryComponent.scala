@@ -41,7 +41,7 @@ object FacebookRepositoryImpl extends FacebookRepository {
     val facebook = new FacebookFactory().getInstance()
     val faccessToken = new FAccessToken(accessToken.token, accessToken.expires)
     facebook.setOAuthAccessToken(faccessToken)
-    val post = new PostUpdate("This is a test message")
+    val post = new PostUpdate("This is a test message - 21")
     facebook.postFeed(post)
     //        facebook.postStatusMessage("This is second test message")
 

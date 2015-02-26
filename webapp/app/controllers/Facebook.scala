@@ -15,14 +15,31 @@ object Facebook extends Controller {
   lazy val callbackURL = s"$serverURL/facebook/callback"
   lazy val redirectURL = s"$serverURL/facebook/testLogin"
   lazy val authURL     = s"$serverURL/facebook/auth"
+  lazy val postURL     = s"$serverURL/facebook/testPost"
 
   def testLogin = Action { implicit request =>
-    if (request.session.get("facebookScreen").isEmpty && request.session.get("facebookMessageId").isEmpty) {
+    if (request.session.get("facebookScreen").isEmpty) {
       TemporaryRedirect(authURL)
     } else {
-      Ok(s"Howdy fb/${request.session("facebookMsgId")}!")
+      Ok(s"Howdy fb/${request.session("facebookScreen")}!")
     }
   }
+  
+  // Method to post messages in FB
+  def testPost = Action {implicit request => 
+    if (/*also check login status */ request.session.get("FBMsgId").isEmpty){
+      request.session - "FBMsgId"
+//      TemporaryRedirect(dataPostUrl)
+      TemporaryRedirect(authURL)
+    } else {
+      Ok(s"Post Message Id: ${request.session("FBMsgId")}")
+      
+    }
+  }
+  
+ /* def dataPostUrl =  {
+facebook.postMessages(accessToken)
+}*/
 
   def auth = Action { implicit request =>
     Found(facebook.getOAuthAuthorizationURL(callbackURL))
@@ -37,7 +54,8 @@ object Facebook extends Controller {
         screenName <- facebook.getName(accessToken)
         postMsgId <- facebook.postMessages(accessToken)
       } yield {
-        Found(redirectURL).withSession(request.session + ("facebookScreen" -> screenName + "facebookMsgId" -> postMsgId))
+        Found(redirectURL).withSession(request.session + ("facebookScreen" -> screenName /*+ "FBMsgId" -> postMsgId*/))
+        Found(postURL).withSession(request.session + ("FBMsgId" -> postMsgId))
       }
 
     } catch {
