@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+<head>
+    <title>Text Form</title>
+    <script type="text/javascript" src="http://code.angularjs.org/1.2.25/angular.min.js"></script>
+    <script type="text/javascript" src="js/modules/promise-tracker.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+
+<div data-ng-controller="help">
+    <form name="helpForm" novalidate role="form">
+        <textarea name="comments" data-ng-model="comments"  rows="13" cols="25" required>Please write your status here...</textarea>
+        <br/>
+        <button data-ng-disabled="progress.active()" data-ng-click="submit(helpForm)" >Submit</button>
+    </form>
+</div>
+  </body>
+</html>

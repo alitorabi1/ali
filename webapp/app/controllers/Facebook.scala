@@ -17,10 +17,10 @@ object Facebook extends Controller {
   lazy val authURL     = s"$serverURL/facebook/auth"
 
   def testLogin = Action { implicit request =>
-    if (request.session.get("facebookScreenName").isEmpty) {
+    if (request.session.get("facebookScreen").isEmpty && request.session.get("facebookMsgId").isEmpty) {
       TemporaryRedirect(authURL)
     } else {
-      Ok(s"Howdy fb/${request.session("facebookScreenName")}!")
+      Ok(s"Howdy fb/${request.session("facebookMsgId")}!")
     }
   }
 
@@ -34,9 +34,10 @@ object Facebook extends Controller {
 
       for {
         accessToken <- facebook.getOAuthAccessToken(oauthCode, callbackURL);
-        screenName <- facebook.getName(accessToken)
+//        screenName <- facebook.getName(accessToken)
+        postMsgId <- facebook.postMessages(accessToken)
       } yield {
-        Found(redirectURL).withSession(request.session + ("facebookScreenName" -> screenName))
+        Found(redirectURL).withSession(request.session + (/*"facebookScreen" -> screenName +*/ "facebookMsgId" -> postMsgId))
       }
 
     } catch {
