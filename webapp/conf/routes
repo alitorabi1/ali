@@ -15,6 +15,14 @@ GET     /facebook/testLogin          controllers.Facebook.testLogin
 GET     /facebook/auth               controllers.Facebook.auth
 GET     /facebook/callback           controllers.Facebook.callback
 GET     /facebook/testPost           controllers.Facebook.testPost
+GET     /facebook/dataPost           controllers.Facebook.dataPost
+GET     /facebook/dataAuth           controllers.Facebook.dataAuth
+GET     /facebook/testUserDetails    controllers.Facebook.testUserDetails
+GET     /facebook/userDetailsAuth    controllers.Facebook.userDetailsAuth
+GET     /facebook/getUserDetails     controllers.Facebook.getUserDetails
+GET     /facebook/testPostDetails    controllers.Facebook.testPostDetails
+GET     /facebook/postDetailsAuth    controllers.Facebook.postDetailsAuth
+GET     /facebook/getPostDetails     controllers.Facebook.getPostDetails
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
