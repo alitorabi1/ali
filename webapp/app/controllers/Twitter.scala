@@ -7,7 +7,7 @@ import ExecutionContext.Implicits.global
 import com.socialorra.api.registry.TwitterRegistry
 import com.socialorra.api.repo.twitter.{AccessToken, RequestToken}
 
-object Twitter extends Controller {
+object  Twitter extends Controller {
 
   val twitter = TwitterRegistry.twitterRepository
 

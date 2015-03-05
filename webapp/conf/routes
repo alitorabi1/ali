@@ -3,6 +3,7 @@
 # ~~~~
 
 # Login
+GET         /post                      controllers.Application.index
 POST    /login/auth                 controllers.Login.auth
 
 # Twitter

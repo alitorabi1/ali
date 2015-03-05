@@ -2,7 +2,6 @@ package com.socialorra.api.repo.facebook
 
 import facebook4j.FacebookFactory
 import facebook4j.auth.{ AccessToken ⇒ FAccessToken }
-
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 

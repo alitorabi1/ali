@@ -1,0 +1,12 @@
+#footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+}
+#preview{
+    border:2px solid red;
+    width:300;
+    height:300;
+    margin:0 auto;
+    background-color:#777;
+}
