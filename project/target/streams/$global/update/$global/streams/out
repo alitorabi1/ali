@@ -1,0 +1,4 @@
+[0m[[33mwarn[0m] [0mThere may be incompatibilities among your library dependencies.[0m
+[0m[[33mwarn[0m] [0mHere are some of the libraries that were evicted:[0m
+[0m[[33mwarn[0m] [0m	* com.typesafe.sbt:sbt-native-packager:0.7.0-RC2 -> 0.7.4[0m
+[0m[[33mwarn[0m] [0mRun 'evicted' to see detailed eviction warnings[0m

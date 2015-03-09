@@ -19,5 +19,11 @@ GET     /facebook/callback           controllers.Facebook.callback
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Front
-GET     /                              controllers.Application.index
 
+GET     /                           controllers.Application.index
+
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /                           controllers.StaticFile.html(file = "app/View.index.scala.html")
+
+GET /file                           controllers.Assets.at(path="/public", file="html/file.html")
+GET /                               controllers.Assets.at(path="/public", file="html/static.html")
