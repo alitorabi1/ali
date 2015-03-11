@@ -7,7 +7,7 @@
 		revision="1.0.0"
 		conf="default"
 		confs="default"
-		date="20150309162512"/>
+		date="20150311134646"/>
 	<dependencies>
 		<module organisation="org.scalariform" name="scalariform_2.10">
 			<revision name="0.1.4" status="release" pubdate="20130424143552" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://github.com/mdr/scalariform" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="172">

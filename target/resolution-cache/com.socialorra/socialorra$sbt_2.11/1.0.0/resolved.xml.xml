@@ -4,7 +4,7 @@
 		module="socialorra$sbt_2.11"
 		revision="1.0.0"
 		status="integration"
-		publication="20150309162510"
+		publication="20150311134644"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>

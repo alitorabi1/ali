@@ -4,7 +4,7 @@
 		module="socialorra$sources_javadoc_2.11"
 		revision="1.0.0"
 		status="integration"
-		publication="20150309162517"
+		publication="20150311134651"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
