@@ -45,7 +45,6 @@ object Facebook extends Controller {
 
       } yield {
         Found(redirectURL).withSession(request.session + ("facebookScreenName" -> screenName))
-        Found(postURL).withSession(request.session + ("FBMsgId" -> postID))
       }
 
     } catch {
