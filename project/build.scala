@@ -29,7 +29,10 @@ object SoBuild extends Build {
   )
 
   val webappDeps = Seq(
-    scalaTest
+    scalaTest,
+    webjarsPlay,
+    angularJs,
+    requireJs
   )
 
   lazy val root = Project(id = "socialorra",
@@ -70,6 +73,9 @@ object Dependencies {
   val facebook4j = "org.facebook4j" % "facebook4j-core" % "2.1.0"
   val apacheCommons = "org.apache.commons" % "commons-email" % "1.3.2"
   val greenMail = "com.icegreen" % "greenmail" % "1.3.1b" % "test"
+  val webjarsPlay = "org.webjars" %% "webjars-play" % "2.3.0"
+  val angularJs = "org.webjars" % "angularjs" % "1.2.24"
+  val requireJs = "org.webjars" % "requirejs" % "2.1.14-1"
 }
 
 object Format {

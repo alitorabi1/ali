@@ -1,0 +1,17 @@
+@()<!doctype html>
+<html lang="en" ng-app="so">
+    <head>
+        <title>SPASS</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script data-main="@routes.Assets.versioned("javascripts/app.js")" src="@routes.Assets.versioned("lib/requirejs/require.js")"></script>
+    </head>
+    <body>
+			Write some text in textbox:
+			<input type="text" ng-model="sometext">
+			<h1>Hello {{ sometext }}</h1>
+    </body>
+</html>
