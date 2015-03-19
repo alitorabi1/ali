@@ -1,12 +1,12 @@
 <html>
     <head>
-        <script src="/bower_components/angular/angular.js" type="text/javascript" ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js" type="text/javascript" ></script>
         <link rel="stylesheet" type="text/css" href="/assets/first.css">
         <script type="text/javascript" src="/assets/file.js"></script>
     </head>
     <body ng-app="myApp" ng-controller="MyCtrl">
         <form ng-hide="for">
-            <input type="text"/>
+            <input type="text"  ng-model="url"/><br/>
             <textarea ng-model="text" ng-trim="false" rows="10" cols="40" maxlength="40">
 	</textarea>
             <br/>
@@ -19,9 +19,8 @@
             <img ng-src="/assets/t.jpg" ng-click="visible=true;for=true;" height="30" width="30"/>
             <img ng-src="/assets/f.gif" ng-click="visible=true;for=true;" height="30" width="30"/>
         </div>
-        <meta property="title" content="www.socialorra.com">
-        <button type="button" onClick="data()"></button>
         <div id="preview" ng-show="visible">
+            {{url-title}}<br/>{{url-description}}<br/>{{url-img}}
 
             <br/>
             {{text}}

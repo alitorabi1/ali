@@ -1,5 +1,5 @@
 /**
- * Created by chota_don on 15-03-02.
+ * Created by chota_don on 03-02.
  */
 var myApp=angular.module('myApp',[]);
 function MyCtrl($scope,$http){
@@ -14,34 +14,45 @@ function MyCtrl($scope,$http){
             $scope.data=e.target.result;
         });
     }
-    $scope.call=function(){
 
-        $http.get('www.socialorra.com').
-            success(function(data,status,headers,config){
-                $scope.url=$(data).filter('meta[name=title]').attr("content");
-            }).
-            error(function(data,status,headers,config){
-
-            });
+    $scope.show=function(){
+        var url="localhost:9000"
+        var urlText=
+        {
+            "url":$scope.url
+        };
+        $http({
+            method:"GET",
+            url:url+"/getUrl",
+            params:{
+                data:urlText
+            }
+        })
+            .success(function(data,status,headers,config){
+                $scope.url-title.push(data.title)
+                $scope.url-description.push(data.description)
+                $scope.url-img.push(data.img)
+            })
 
     }
 
-    // $scope.pre=function(){
-// 		angular.element("preview").display("block");
-// 	}
+
 }
 
 
+myApp.directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if(event.which === 13) {
+                scope.$apply(function(){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+
+            }
+        });
 
 
-// var myapp=angular.module('myapp',[]);
-// function MyCtrl($scope){
-// 	$scope.add=function(){
-// 		var f=document.getElementById('file').files[0],
-// 		r= new FileReader();
-// 		r.onloadend=function(e){
-// 			$scope.data=e.target.result;
-// 		}
-// 		r.readAsBinaryString(f);
-// 	}
-// }
+    };
+});

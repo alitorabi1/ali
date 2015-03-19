@@ -23,3 +23,6 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "0.99.5")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.3.0")
 
+addSbtPlugin("com.github.dwickern" % "sbt-bower" % "1.0.1")
+
+

@@ -1,10 +1,19 @@
+import com.typesafe.sbt.jse.JsEngineImport.JsEngineKeys
 import sbt._
 import Keys._
 import play.PlayScala
 
 object SoBuild extends Build {
+
+
+
+
+
+
+
   override lazy val settings = super.settings ++
     Seq(
+      JsEngineKeys.engineType := JsEngineKeys.EngineType.Node,
       name := "socialorra",
       version := "1.0.0",
       organization := "com.socialorra",

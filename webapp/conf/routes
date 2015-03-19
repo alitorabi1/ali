@@ -4,17 +4,20 @@
 
 # Login
 GET         /post                      controllers.Application.index
-POST    /login/auth                 controllers.Login.auth
+POST        /login/auth                controllers.Login.auth
 
 # Twitter
-GET     /twitter/testLogin          controllers.Twitter.testLogin
-GET     /twitter/auth               controllers.Twitter.auth
-GET     /twitter/callback           controllers.Twitter.callback
+GET         /twitter/testLogin         controllers.Twitter.testLogin
+GET         /twitter/auth              controllers.Twitter.auth
+GET         /twitter/callback          controllers.Twitter.callback
 
 # Facebook
-GET     /facebook/testLogin          controllers.Facebook.testLogin
-GET     /facebook/auth               controllers.Facebook.auth
-GET     /facebook/callback           controllers.Facebook.callback
+GET         /facebook/testLogin        controllers.Facebook.testLogin
+GET         /facebook/auth             controllers.Facebook.auth
+GET         /facebook/callback         controllers.Facebook.callback
+
+#Calling Json
+GET         /getUrl:text                    controllers.Application.returnUrl(text:JsValue)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /assets/*file              controllers.Assets.at(path="/public", file)
