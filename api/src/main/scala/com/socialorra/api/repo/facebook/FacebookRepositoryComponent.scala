@@ -12,7 +12,7 @@ trait FacebookRepository {
   def getOAuthAuthorizationURL(callbackURL: String): String
   def getOAuthAccessToken(oauthCode: String, callbackURL: String): Future[AccessToken]
   def getName(implicit accessToken: AccessToken): Future[String]
-  def postMessage(implicit accessToken: AccessToken): Future[String]
+  def postMessage(implicit accessToken: AccessToken, msg: String): Future[String]
 }
 
 /** Facebook repository that communicates with the real world
@@ -36,11 +36,11 @@ object FacebookRepositoryImpl extends FacebookRepository {
     facebook.getName
   }
 
-  def postMessage(implicit accessToken: AccessToken): Future[String] = Future {
+  def postMessage(implicit accessToken: AccessToken, msg: String): Future[String] = Future {
     val facebook = new FacebookFactory().getInstance()
     val faccessToken = new FAccessToken(accessToken.token, accessToken.expires)
     facebook.setOAuthAccessToken(faccessToken)
-    val post = new PostUpdate("msg -6")
+    val post = new PostUpdate(msg)
     facebook.postFeed(post)
   }
 }

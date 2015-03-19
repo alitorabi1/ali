@@ -41,8 +41,6 @@ object Facebook extends Controller {
       for {
         accessToken <- facebook.getOAuthAccessToken(oauthCode, callbackURL);
         screenName <- facebook.getName(accessToken)
-        postID <- facebook.postMessage(accessToken)
-
       } yield {
         Found(redirectURL).withSession(request.session + ("facebookScreenName" -> screenName))
       }
@@ -73,10 +71,11 @@ object Facebook extends Controller {
 
     def dataPost = Action.async { implicit request =>
       try{
+        val postContent: String = request.queryString.map{case (k,v) => v.mkString}.toString()
         val oauthCode: String = request.getQueryString("code").get
         for {
           accessToken <- facebook.getOAuthAccessToken(oauthCode, dataPostURL);
-          postMsgId <- facebook.postMessage(accessToken)
+          postMsgId <- facebook.postMessage(accessToken,postContent)
         } yield{
           Found(postURL).withSession(request.session + ("FBMsgId" -> postMsgId))
         }
