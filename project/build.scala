@@ -1,6 +1,5 @@
+import sbt.Keys._
 import sbt._
-import Keys._
-import play.PlayScala
 
 object SoBuild extends Build {
   override lazy val settings = super.settings ++
@@ -13,7 +12,9 @@ object SoBuild extends Build {
         "Sonatype OSS Releases" at "http://oss.sonatype.org/content/repositories/releases/",
         "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
         "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/",
-        "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/")
+        "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
+        "Anorm Repository" at "http://repo.typesafe.com/typesafe/releases/play/anorm_2.9.1/"
+        )
     )
 
   import Dependencies._
@@ -25,11 +26,16 @@ object SoBuild extends Build {
     facebook4j,
     greenMail,
     scalaTest,
-    twitter4j
+    twitter4j,
+    mysql
   )
 
   val webappDeps = Seq(
-    scalaTest
+    scalaTest,
+    mysql,
+    jdbc,
+    anorm
+
   )
 
   lazy val root = Project(id = "socialorra",
@@ -70,6 +76,7 @@ object Dependencies {
   val facebook4j = "org.facebook4j" % "facebook4j-core" % "2.1.0"
   val apacheCommons = "org.apache.commons" % "commons-email" % "1.3.2"
   val greenMail = "com.icegreen" % "greenmail" % "1.3.1b" % "test"
+  val mysql = "mysql" % "mysql-connector-java" % "5.1.21"
 }
 
 object Format {
