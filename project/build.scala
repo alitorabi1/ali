@@ -35,7 +35,8 @@ object SoBuild extends Build {
     greenMail,
     scalaTest,
     twitter4j,
-    jsoup
+    jsoup,
+    jacksonjson
   )
 
   val webappDeps = Seq(
@@ -81,6 +82,7 @@ object Dependencies {
   val apacheCommons = "org.apache.commons" % "commons-email" % "1.3.2"
   val greenMail = "com.icegreen" % "greenmail" % "1.3.1b" % "test"
   val jsoup= "org.jsoup" % "jsoup" % "1.7.2"
+  val jacksonjson = "com.fasterxml.jackson.core" % "jackson-databind" % "2.4.0"
 }
 
 object Format {

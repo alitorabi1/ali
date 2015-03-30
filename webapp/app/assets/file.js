@@ -15,26 +15,26 @@ function MyCtrl($scope,$http){
         });
     }
 
-    $scope.show=function(){
-        var url="localhost:9000"
-        var urlText=
-        {
-            "url":$scope.url
-        };
-        $http({
-            method:"GET",
-            url:url+"/getUrl",
-            params:{
-                data:urlText
-            }
-        })
-            .success(function(data,status,headers,config){
-                $scope.url-title.push(data.title)
-                $scope.url-description.push(data.description)
-                $scope.url-img.push(data.img)
-            })
-
-    }
+    //$scope.show=function(){
+    //    var url="localhost:9000"
+    //    var urlText=
+    //    {
+    //        "url":$scope.url
+    //    };
+    //    $http({
+    //        method:"POST",
+    //        url:url+"/getUrl",
+    //        params:{
+    //            data:$scope.url
+    //        }
+    //    })
+    //        .success(function(data){
+    //            $scope.url-title.push(data.title)
+    //            $scope.url-description.push(data.description)
+    //            $scope.url-img.push(data.img)
+    //        })
+    //
+    //}
 
 
 }
