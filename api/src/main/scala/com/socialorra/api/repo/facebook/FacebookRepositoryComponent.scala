@@ -1,6 +1,7 @@
 package com.socialorra.api.repo.facebook
 
-import facebook4j.FacebookFactory
+import facebook4j.Facebook
+import facebook4j.{ PostUpdate, FacebookFactory, ResponseList, User }
 import facebook4j.auth.{ AccessToken ⇒ FAccessToken }
 
 import scala.concurrent.Future
@@ -12,9 +13,11 @@ trait FacebookRepository {
   def getOAuthAuthorizationURL(callbackURL: String): String
   def getOAuthAccessToken(oauthCode: String, callbackURL: String): Future[AccessToken]
   def getName(implicit accessToken: AccessToken): Future[String]
+  def getEmail(implicit accessToken: AccessToken): Future[String]
 }
 
 /** Facebook repository that communicates with the real world
+ *
  */
 object FacebookRepositoryImpl extends FacebookRepository {
   def getOAuthAuthorizationURL(callbackURL: String): String = {
@@ -34,5 +37,13 @@ object FacebookRepositoryImpl extends FacebookRepository {
     facebook.setOAuthAccessToken(faccessToken)
     facebook.getName
   }
+
+  def getEmail(implicit accessToken: AccessToken): Future[String] = Future {
+    val facebook = new FacebookFactory().getInstance()
+    val faccessToken = new FAccessToken(accessToken.token, accessToken.expires)
+    facebook.setOAuthAccessToken(faccessToken)
+    facebook.getMe.getEmail
+  }
+
 }
 

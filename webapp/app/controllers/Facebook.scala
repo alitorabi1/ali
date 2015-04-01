@@ -7,6 +7,7 @@ import ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 import com.socialorra.api.repo.facebook.AccessToken
 
+
 object Facebook extends Controller {
 
   val facebook = FacebookRegistry.facebookRepository
@@ -15,6 +16,10 @@ object Facebook extends Controller {
   lazy val callbackURL = s"$serverURL/facebook/callback"
   lazy val redirectURL = s"$serverURL/facebook/testLogin"
   lazy val authURL     = s"$serverURL/facebook/auth"
+
+  lazy val userInfoURL = s"$serverURL/facebook/userInfo"
+  lazy val infoURL = s"$serverURL/facebook/testInfo"
+  lazy val infoAuthURL     = s"$serverURL/facebook/infoAuth"
 
   def testLogin = Action { implicit request =>
     if (request.session.get("facebookScreenName").isEmpty) {
@@ -44,4 +49,35 @@ object Facebook extends Controller {
       case x: Throwable => Future { InternalServerError("unknown error") }
     }
   }
+
+  def testInfo = Action { implicit request =>
+    if (request.session.get("facebookUserEmail").isEmpty) {
+      TemporaryRedirect(infoAuthURL)
+    } else {
+      Ok(s"User email: /${request.session("facebookUserEmail")}!")
+    }
+
+  }
+
+  def infoAuth = Action { implicit request =>
+    Found(facebook.getOAuthAuthorizationURL(userInfoURL))
+  }
+
+  def userInfo = Action.async { implicit request =>
+    try {
+      val oauthCode: String = request.getQueryString("code").get
+
+      for {
+        accessToken <- facebook.getOAuthAccessToken(oauthCode, userInfoURL);
+        userEmail <- facebook.getEmail(accessToken)
+
+      } yield {
+        Found(infoURL).withSession(request.session + ("facebookUserEmail" -> userEmail ))
+      }
+    } catch {
+      case e: Exception => Future { InternalServerError(e.getMessage) }
+      case x: Throwable => Future { InternalServerError("unknown error") }
+    }
+  }
+
 }
